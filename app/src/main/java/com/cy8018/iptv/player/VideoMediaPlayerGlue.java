@@ -16,6 +16,7 @@
 package com.cy8018.iptv.player;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.TrafficStats;
 import android.os.Handler;
 
@@ -114,6 +115,11 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_tv_info, parent, false);
+
+            View logo = view.findViewById(R.id.tv_info_bar);
+            //logo.setBackgroundColor(Color.DKGRAY);
+            logo.getBackground().setAlpha(140);
+
             return new ViewHolder(view);
         }
 
@@ -148,7 +154,7 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
                 channelName = itemView.findViewById(R.id.channel_name);
                 sourceInfo = itemView.findViewById(R.id.source_info);
                 networkSpeed = itemView.findViewById(R.id.network_speed);
-                logo = itemView.findViewById(R.id.logo);
+                logo = itemView.findViewById(R.id.station_logo);
 
                 new Thread(networkSpeedRunnable).start();
             }

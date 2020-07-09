@@ -24,7 +24,6 @@ import android.util.Log;
 import androidx.leanback.app.VideoSupportFragment;
 import androidx.leanback.app.VideoSupportFragmentGlueHost;
 import androidx.leanback.media.PlaybackGlue;
-import androidx.room.Room;
 
 import com.cy8018.iptv.database.AppDatabase;
 import com.cy8018.iptv.database.StationData;
@@ -38,10 +37,10 @@ import java.util.ArrayList;
 /**
  * Handles video playback with media controls.
  */
-public class PlaybackVideoFragment extends VideoSupportFragment {
+public class PlaybackVideoFragment extends MyVideoSupportFragment {
 
     private VideoMediaPlayerGlue<ExoPlayerAdapter> mMediaPlayerGlue;
-    final VideoSupportFragmentGlueHost mHost = new VideoSupportFragmentGlueHost(this);
+    final MyVideoSupportFragmentGlueHost mHost = new MyVideoSupportFragmentGlueHost(this);
     private Station currentStation = null;
     private ArrayList<Station> mStationList;
     private int currentSourceIndex = 0;
@@ -66,7 +65,9 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setBackgroundType(BG_LIGHT);
+        //setBackgroundType(BG_LIGHT);
+
+        setBackgroundType(BG_NONE);
         ExoPlayerAdapter playerAdapter = new ExoPlayerAdapter(getActivity());
         mMediaPlayerGlue = new VideoMediaPlayerGlue(getActivity(), playerAdapter);
         mMediaPlayerGlue.setHost(mHost);
@@ -196,6 +197,7 @@ public class PlaybackVideoFragment extends VideoSupportFragment {
     }
 
     public void ShowControl() {
+
         showControlsOverlay(true);
         SetLastActiveTime();
     }

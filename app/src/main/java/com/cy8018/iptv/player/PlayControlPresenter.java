@@ -1,5 +1,6 @@
 package com.cy8018.iptv.player;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class PlayControlPresenter extends PlaybackRowPresenter {
     @Override
     protected RowPresenter.ViewHolder createRowViewHolder(ViewGroup parent) {
         View v = LayoutInflater.from(parent.getContext()).inflate(com.cy8018.iptv.R.layout.layout_play_control, parent, false);
+
         ViewHolder vh = new ViewHolder(v, mDescriptionPresenter);
         return vh;
     }
