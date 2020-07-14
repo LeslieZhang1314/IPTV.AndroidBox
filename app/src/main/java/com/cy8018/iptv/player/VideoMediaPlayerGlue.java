@@ -34,6 +34,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.cy8018.iptv.R;
 import com.cy8018.iptv.model.Station;
 
@@ -129,8 +131,10 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
             VideoMediaPlayerGlue glue = (VideoMediaPlayerGlue) item;
             ((ViewHolder)viewHolder).channelName.setText(glue.getTitle());
             ((ViewHolder)viewHolder).sourceInfo.setText(glue.getSubtitle());
+
             Glide.with(getContext())
                     .asBitmap()
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(10)))
                     .load(glue.getCurrentStation().logo)
                     .into(((ViewHolder)viewHolder).logo);
         }
