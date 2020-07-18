@@ -38,8 +38,8 @@ import static androidx.leanback.widget.BaseCardView.CARD_TYPE_INFO_UNDER;
 public class StationCardPresenter extends Presenter {
     private static final String TAG = "CardPresenter";
 
-    private static final int CARD_WIDTH = 320;
-    private static final int CARD_HEIGHT = 180;
+    private static final int CARD_WIDTH = 330;
+    private static final int CARD_HEIGHT = 200;
     private static int sSelectedBackgroundColor;
     private static int sDefaultBackgroundColor;
     private Drawable mDefaultCardImage;
@@ -78,7 +78,7 @@ public class StationCardPresenter extends Presenter {
         cardView.setFocusable(true);
         cardView.setFocusableInTouchMode(true);
         //((TextView) cardView.findViewById(R.id.title_text)).setTextColor(TITLE_COLOR); // Title text
-        ((TextView) cardView.findViewById(R.id.title_text)).setTextSize(20);
+        ((TextView) cardView.findViewById(R.id.title_text)).setTextSize(31);
         cardView.findViewById(R.id.title_text).setTextAlignment(TEXT_ALIGNMENT_CENTER);
 
         return new ViewHolder(cardView);

@@ -48,30 +48,50 @@ import java.util.Date;
  * @param <T>
  */
 public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTransportControlGlue<T> {
+
     private Station currentStation;
 
     private String currentTime = "";
+
+    private String currentChannelId = "";
+
+    private String targetChannelId = "";
 
     private long lastTotalRxBytes = 0;
 
     private long lastTimeStamp = 0;
 
-    Activity mContext;
-
-    public static final int MSG_UPDATE_NETSPEED_AND_TIME = 0;
-
-    public void setCurrentTime (String time) { this.currentTime = time; }
-
-    public Station getCurrentStation() {
-        return currentStation;
-    }
+    public static final int MSG_UPDATE_INFO = 0;
 
     public static String gNetworkSpeed = "";
 
     private static final String TAG = "VideoMediaPlayerGlue";
 
+    Activity mContext;
+
+    public void setCurrentTime (String time) { this.currentTime = time; }
+
+    public void setCurrentChannelId(String currentChannelId)
+    {
+        this.currentChannelId = currentChannelId;
+    }
+
+    public void setTargetChannelId(String channelId)
+    {
+        this.targetChannelId = channelId;
+    }
+
+    public Station getCurrentStation() {
+        return currentStation;
+    }
+
+    public String getTargetChannelId() {
+        return targetChannelId;
+    }
+
     public void setCurrentStation(Station currentStation) {
         this.currentStation = currentStation;
+        this.currentChannelId = String.valueOf(currentStation.index + 1);
     }
 
     public VideoMediaPlayerGlue(Activity context, T impl) {
@@ -121,7 +141,7 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
         return  dateNowStr;
     }
 
-    public void getBufferingInfo() {
+    public void getNetSpeedInfo() {
         gNetworkSpeed = getNetSpeedText(getNetSpeed());
         Log.d(TAG, gNetworkSpeed);
     }
@@ -132,8 +152,11 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_tv_info, parent, false);
 
             View infoBarView = view.findViewById(R.id.tv_info_bar);
+            View channelIdBg = view.findViewById(R.id.channel_id_bg);
+
             //logo.setBackgroundColor(Color.DKGRAY);
-            infoBarView.getBackground().setAlpha(140);
+            infoBarView.getBackground().setAlpha(145);
+            channelIdBg.getBackground().setAlpha(150);
 
             return new ViewHolder(view);
         }
@@ -145,6 +168,8 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
             ((ViewHolder)viewHolder).channelName.setText(glue.getTitle());
             ((ViewHolder)viewHolder).sourceInfo.setText(glue.getSubtitle());
             ((ViewHolder)viewHolder).currentTime.setText(currentTime);
+            ((ViewHolder)viewHolder).channelId.setText(currentChannelId);
+            ((ViewHolder)viewHolder).targetChannelId.setText(targetChannelId);
 
             Glide.with(getContext())
                     .asBitmap()
@@ -160,6 +185,8 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
 
         class ViewHolder extends Presenter.ViewHolder {
 
+            TextView channelId;
+            TextView targetChannelId;
             TextView currentTime;
             TextView channelName;
             TextView sourceInfo;
@@ -169,18 +196,21 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
             private ViewHolder (View itemView)
             {
                 super(itemView);
+                channelId = itemView.findViewById(R.id.channel_id);
+                targetChannelId = itemView.findViewById(R.id.target_channel_id);
                 currentTime = itemView.findViewById(R.id.current_time);
                 channelName = itemView.findViewById(R.id.channel_name);
                 sourceInfo = itemView.findViewById(R.id.source_info);
                 networkSpeed = itemView.findViewById(R.id.network_speed);
-                logo = itemView.findViewById(R.id.station_logo);
+                logo = itemView.findViewById(R.id.channel_logo);
 
-                new Thread(networkSpeedRunnable).start();
+                new Thread(updateInfoRunnable).start();
             }
 
-            public void UpdateNetSpeedAndTime() {
+            public void UpdateDisplayInfo() {
                 networkSpeed.setText(gNetworkSpeed);
                 currentTime.setText(getCurrentTimeString());
+                targetChannelId.setText(getTargetChannelId());
             }
 
             public final MsgHandler mHandler = new MsgHandler(this);
@@ -197,19 +227,19 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
                     super.handleMessage(msg);
 
                     ViewHolder vh = mViewHolder.get();
-                    if (msg.what == MSG_UPDATE_NETSPEED_AND_TIME) {
-                        getBufferingInfo();
-                        vh.UpdateNetSpeedAndTime();
+                    if (msg.what == MSG_UPDATE_INFO) {
+                        getNetSpeedInfo();
+                        vh.UpdateDisplayInfo();
                     }
                 }
             }
 
-            Runnable networkSpeedRunnable = new Runnable() {
+            Runnable updateInfoRunnable = new Runnable() {
                 @Override
                 public void run() {
                     while (true) {
                         try {
-                            mHandler.sendEmptyMessage(MSG_UPDATE_NETSPEED_AND_TIME);
+                            mHandler.sendEmptyMessage(MSG_UPDATE_INFO);
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();

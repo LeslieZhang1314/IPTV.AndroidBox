@@ -17,7 +17,6 @@ package com.cy8018.iptv.player;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -58,15 +57,59 @@ public class PlaybackActivity extends FragmentActivity {
                 || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP
                 || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN
         )) {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER)
+            {
+                mFragment.ConfirmTargetChannelId();
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_0)
+            {
+                mFragment.SetTargetChannelId(0);
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_1)
+            {
+                mFragment.SetTargetChannelId(1);
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_2)
+            {
+                mFragment.SetTargetChannelId(2);
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_3)
+            {
+                mFragment.SetTargetChannelId(3);
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_4)
+            {
+                mFragment.SetTargetChannelId(4);
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_5)
+            {
+                mFragment.SetTargetChannelId(5);
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_6)
+            {
+                mFragment.SetTargetChannelId(6);
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_7)
+            {
+                mFragment.SetTargetChannelId(7);
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_8)
+            {
+                mFragment.SetTargetChannelId(8);
+            }
+            else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_9)
+            {
+                mFragment.SetTargetChannelId(9);
+            }
             mFragment.ShowControl();
         }
 
         if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
-            mFragment.SwitchChanel(true);
+            mFragment.SwitchChannel(true);
             return true;
         }
         if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
-            mFragment.SwitchChanel(false);
+            mFragment.SwitchChannel(false);
             return true;
         }
         if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
