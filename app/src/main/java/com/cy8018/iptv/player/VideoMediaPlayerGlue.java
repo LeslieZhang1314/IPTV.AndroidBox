@@ -16,7 +16,6 @@
 package com.cy8018.iptv.player;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.net.TrafficStats;
 import android.os.Handler;
 
@@ -41,6 +40,8 @@ import com.cy8018.iptv.model.Station;
 
 import org.jetbrains.annotations.NotNull;
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * PlayerGlue for video playback
@@ -49,13 +50,17 @@ import java.lang.ref.WeakReference;
 public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTransportControlGlue<T> {
     private Station currentStation;
 
+    private String currentTime = "";
+
     private long lastTotalRxBytes = 0;
 
     private long lastTimeStamp = 0;
 
     Activity mContext;
 
-    public static final int MSG_UPDATE_NETWORK_SPEED = 0;
+    public static final int MSG_UPDATE_NETSPEED_AND_TIME = 0;
+
+    public void setCurrentTime (String time) { this.currentTime = time; }
 
     public Station getCurrentStation() {
         return currentStation;
@@ -108,6 +113,14 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
         return text;
     }
 
+    public String getCurrentTimeString()
+    {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String dateNowStr = sdf.format(date);
+        return  dateNowStr;
+    }
+
     public void getBufferingInfo() {
         gNetworkSpeed = getNetSpeedText(getNetSpeed());
         Log.d(TAG, gNetworkSpeed);
@@ -118,9 +131,9 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
         public ViewHolder onCreateViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_tv_info, parent, false);
 
-            View logo = view.findViewById(R.id.tv_info_bar);
+            View infoBarView = view.findViewById(R.id.tv_info_bar);
             //logo.setBackgroundColor(Color.DKGRAY);
-            logo.getBackground().setAlpha(140);
+            infoBarView.getBackground().setAlpha(140);
 
             return new ViewHolder(view);
         }
@@ -131,6 +144,7 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
             VideoMediaPlayerGlue glue = (VideoMediaPlayerGlue) item;
             ((ViewHolder)viewHolder).channelName.setText(glue.getTitle());
             ((ViewHolder)viewHolder).sourceInfo.setText(glue.getSubtitle());
+            ((ViewHolder)viewHolder).currentTime.setText(currentTime);
 
             Glide.with(getContext())
                     .asBitmap()
@@ -144,9 +158,9 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
 
         }
 
-
         class ViewHolder extends Presenter.ViewHolder {
 
+            TextView currentTime;
             TextView channelName;
             TextView sourceInfo;
             TextView networkSpeed;
@@ -155,6 +169,7 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
             private ViewHolder (View itemView)
             {
                 super(itemView);
+                currentTime = itemView.findViewById(R.id.current_time);
                 channelName = itemView.findViewById(R.id.channel_name);
                 sourceInfo = itemView.findViewById(R.id.source_info);
                 networkSpeed = itemView.findViewById(R.id.network_speed);
@@ -163,8 +178,9 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
                 new Thread(networkSpeedRunnable).start();
             }
 
-            public void UpdateNetworkSpeed() {
+            public void UpdateNetSpeedAndTime() {
                 networkSpeed.setText(gNetworkSpeed);
+                currentTime.setText(getCurrentTimeString());
             }
 
             public final MsgHandler mHandler = new MsgHandler(this);
@@ -181,9 +197,9 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
                     super.handleMessage(msg);
 
                     ViewHolder vh = mViewHolder.get();
-                    if (msg.what == MSG_UPDATE_NETWORK_SPEED) {
+                    if (msg.what == MSG_UPDATE_NETSPEED_AND_TIME) {
                         getBufferingInfo();
-                        vh.UpdateNetworkSpeed();
+                        vh.UpdateNetSpeedAndTime();
                     }
                 }
             }
@@ -193,7 +209,7 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
                 public void run() {
                     while (true) {
                         try {
-                            mHandler.sendEmptyMessage(MSG_UPDATE_NETWORK_SPEED);
+                            mHandler.sendEmptyMessage(MSG_UPDATE_NETSPEED_AND_TIME);
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();

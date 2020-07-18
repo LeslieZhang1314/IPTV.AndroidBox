@@ -51,7 +51,7 @@ public class PlaybackVideoFragment extends MyVideoSupportFragment {
     // message to hide the control overlay
     public static final int MSG_HIDE_CONTROL = 1;
 
-    public static final int CONTROL_OVERLAY_FADE_TIME = 3;
+    public static final int CONTROL_OVERLAY_FADE_TIME = 4;
 
     public static long lastActiveTimeStamp = 0;
 

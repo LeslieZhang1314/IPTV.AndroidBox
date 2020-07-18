@@ -2,59 +2,86 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@drawable/round_corner_bg"
-    android:id="@+id/tv_info_bar"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
-    android:layout_weight="8"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_weight="28"
     >
-    <ImageView
-        android:id="@+id/station_logo"
-        android:layout_margin="8dp"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_weight="2"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/current_time"
+        android:textSize="45dp"
+        android:layout_gravity="right|top"
+        android:gravity="top|right"
+        android:paddingEnd="25dp"
+        android:layout_weight="1"
         />
     <TextView
-        android:id="@+id/channel_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="330dp"
-        android:layout_gravity="center"
-        android:textSize="60sp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:layout_weight="4"
-        android:gravity="center"
+        android:text=""
+        android:height="300dp"
         />
-
     <LinearLayout
-        android:layout_weight="2"
-        android:layout_width="160dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="right|center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/round_corner_bg"
+        android:id="@+id/tv_info_bar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="10dp"
+        android:layout_weight="8"
         >
-        <TextView
-            android:id="@+id/source_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="45sp"
+        <ImageView
+            android:id="@+id/station_logo"
+            android:layout_margin="8dp"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
             />
         <TextView
-            android:id="@+id/network_speed"
-            android:layout_width="wrap_content"
+            android:id="@+id/channel_name"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="45sp"
+            android:layout_width="350dp"
+            android:layout_gravity="center"
+            android:textSize="72sp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_weight="4"
+            android:gravity="center"
             />
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="right|center_vertical"
+            >
+            <TextView
+                android:id="@+id/source_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textSize="45sp"
+                />
+            <TextView
+                android:id="@+id/network_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textSize="45sp"
+                />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+
+
+
 
 
 
