@@ -104,11 +104,13 @@ public class PlaybackActivity extends FragmentActivity {
             mFragment.ShowControl();
         }
 
-        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN
+                &&  (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP || event.getKeyCode() == KeyEvent.KEYCODE_CHANNEL_UP)) {
             mFragment.SwitchChannel(true);
             return true;
         }
-        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN
+                && (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN || event.getKeyCode() == KeyEvent.KEYCODE_CHANNEL_DOWN)) {
             mFragment.SwitchChannel(false);
             return true;
         }
