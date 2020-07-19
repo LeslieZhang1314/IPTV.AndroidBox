@@ -155,8 +155,8 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
             View channelIdBg = view.findViewById(R.id.channel_id_bg);
 
             //logo.setBackgroundColor(Color.DKGRAY);
-            infoBarView.getBackground().setAlpha(145);
-            channelIdBg.getBackground().setAlpha(150);
+            infoBarView.getBackground().setAlpha(0);
+            channelIdBg.getBackground().setAlpha(100);
 
             return new ViewHolder(view);
         }
