@@ -54,7 +54,7 @@ public class PlaybackVideoFragment extends MyVideoSupportFragment {
 
     public static final float CONTROL_OVERLAY_FADE_TIME = 4.5f;
 
-    public static final float SWITCH_CHANNEL_DELAY_TIME = 1.5f;
+    public static final float SWITCH_CHANNEL_DELAY_TIME = 1.0f;
 
     public static long lastActiveTimeStamp = 0;
 
@@ -315,7 +315,7 @@ public class PlaybackVideoFragment extends MyVideoSupportFragment {
                     if (timeDiff > SWITCH_CHANNEL_DELAY_TIME * 1000) {
                         mHandler.sendEmptyMessage(MSG_SWITCH_CHANNEL);
                     }
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

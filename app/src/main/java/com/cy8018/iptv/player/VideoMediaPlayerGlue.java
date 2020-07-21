@@ -240,7 +240,7 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
                     while (true) {
                         try {
                             mHandler.sendEmptyMessage(MSG_UPDATE_INFO);
-                            Thread.sleep(1000);
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
