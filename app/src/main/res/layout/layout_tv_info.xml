@@ -12,32 +12,17 @@
         android:layout_weight="10"
         >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/target_channel_id"
-            android:textSize="70dp"
-            android:layout_gravity="top|left"
-            android:gravity="top|left"
-            android:paddingStart="45dp"
-            android:layout_weight="2"
-            android:textColor="@color/search_opaque"
-            android:shadowColor="#000000"
-            android:shadowDx="3"
-            android:shadowDy="3"
-            android:shadowRadius="5"
-            />
-        <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="50dp"
-            android:layout_weight="6"
+            android:layout_height="100dp"
+            android:textSize="40sp"
+            android:layout_weight="8"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/current_time"
             android:textColor="#FFFFFF"
-            android:textSize="50dp"
+            android:textSize="40dp"
             android:layout_gravity="right|top"
             android:gravity="right|top"
             android:paddingEnd="30dp"
@@ -48,13 +33,20 @@
             android:shadowRadius="5"
             />
     </LinearLayout>
-
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:height="470dp"
+        android:height="280dp"
+        android:id="@+id/target_channel_id"
+        android:textSize="100sp"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_weight="1"
+        android:textColor="@color/search_opaque"
+        android:shadowColor="#000000"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
         />
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -63,12 +55,20 @@
         android:orientation="horizontal"
         android:background="@drawable/round_corner_bg"
         android:id="@+id/tv_info_bar"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:paddingStart="5dp"
         android:paddingEnd="10dp"
         android:layout_weight="8"
         >
+        <ImageView
+            android:id="@+id/channel_logo"
+            android:layout_margin="8dp"
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            />
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/channel_id"
-                android:textSize="65dp"
+                android:textSize="75sp"
                 android:textColor="#FFFFFF"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -98,19 +98,11 @@
                 android:shadowRadius="5"
                 />
         </LinearLayout>
-        <ImageView
-            android:id="@+id/channel_logo"
-            android:layout_margin="8dp"
-            android:layout_width="160dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            />
         <TextView
             android:id="@+id/channel_name"
             android:layout_height="wrap_content"
             android:layout_width="350dp"
-            android:textSize="80sp"
+            android:textSize="78sp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:layout_weight="4"
@@ -125,30 +117,54 @@
             />
         <LinearLayout
             android:layout_weight="2"
-            android:layout_width="165dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="right|center_vertical"
             >
-            <TextView
-                android:id="@+id/source_info"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:textColor="#FFFFFF"
-                android:textSize="45sp"
-                android:shadowColor="#000000"
-                android:shadowDx="3"
-                android:shadowDy="3"
-                android:shadowRadius="5"
-                />
+                android:orientation="horizontal"
+                android:layout_gravity="right|bottom"
+                android:gravity="right"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:text="@string/source_string"
+                    android:gravity="bottom"
+                    android:textColor="#FFFFFF"
+                    android:textSize="42sp"
+                    android:shadowColor="#000000"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    />
+                <TextView
+                    android:id="@+id/source_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:gravity="bottom"
+                    android:textColor="#FFFFFF"
+                    android:textSize="42sp"
+                    android:shadowColor="#000000"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="5"
+                    />
+            </LinearLayout>
             <TextView
                 android:id="@+id/network_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="right|top"
+                android:gravity="top"
+                android:layout_marginTop="-10dp"
                 android:textColor="#FFFFFF"
-                android:textSize="45sp"
+                android:textSize="42sp"
                 android:shadowColor="#000000"
                 android:shadowDx="3"
                 android:shadowDy="3"

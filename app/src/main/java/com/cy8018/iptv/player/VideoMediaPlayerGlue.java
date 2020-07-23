@@ -42,6 +42,8 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * PlayerGlue for video playback
@@ -146,6 +148,16 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
         Log.d(TAG, gNetworkSpeed);
     }
 
+    public static boolean isContainChinese(String str) {
+
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            return true;
+        }
+        return false;
+    }
+
     private class MyDescriptionPresenter extends Presenter {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent) {
@@ -158,6 +170,12 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
             infoBarView.getBackground().setAlpha(0);
             channelIdBg.getBackground().setAlpha(100);
 
+//            TextView channelNameTextView = view.findViewById(R.id.channel_name);
+//            if (channelNameTextView.getText().length()>4)
+//            {
+//                channelNameTextView.setTextSize(60);
+//            }
+
             return new ViewHolder(view);
         }
 
@@ -165,7 +183,19 @@ public class VideoMediaPlayerGlue<T extends PlayerAdapter> extends PlaybackTrans
         public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item) {
 
             VideoMediaPlayerGlue glue = (VideoMediaPlayerGlue) item;
-            ((ViewHolder)viewHolder).channelName.setText(glue.getTitle());
+            String channelNameString = glue.getTitle().toString();
+            ((ViewHolder)viewHolder).channelName.setText(channelNameString);
+            if ((channelNameString.length() > 4 && isContainChinese(channelNameString))
+                || channelNameString.length() > 10
+            )
+            {
+                ((ViewHolder)viewHolder).channelName.setTextSize(60);
+            }
+            else
+            {
+                ((ViewHolder)viewHolder).channelName.setTextSize(78);
+            }
+
             ((ViewHolder)viewHolder).sourceInfo.setText(glue.getSubtitle());
             ((ViewHolder)viewHolder).currentTime.setText(currentTime);
             ((ViewHolder)viewHolder).channelId.setText(currentChannelId);
